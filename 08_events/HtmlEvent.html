@@ -47,13 +47,36 @@
     //altKey,ctrlKey,shiftKey,keyCode
 
 
-    document.getElementById("images").addEventListener('click', (e) => {
+    /*document.getElementById("images").addEventListener('click', (e) => {
             // alert("owl clicked again")
             console.log("clicked inside the ul")
         }, false)
 
-    document.getElementById('img_0005').addEventListener('click',()=>{
+    document.getElementById('img_0005').addEventListener('click',(e)=>{
         console.log("wolf clicked")
+        e.stopPropagation()
     },false)
+
+    //for bubbling event false is imp
+    // for capturing event true is imp
+*/
+    document.getElementById('google').addEventListener('click',(e)=>{
+        e.preventDefault();
+        e.stopPropagation()
+        console.log("google clicked");
+        
+    },true)
+
+    document.querySelector('#images').addEventListener('click',function(e){
+        console.log(e.target.parentNode)
+        console.log(e.target.tagName)
+
+        if(e.target.tagName === 'IMG'){
+            console.log(e.target.id)
+            e.target.parentNode.remove();
+        }
+
+        
+    })
 </script>
 </html>
