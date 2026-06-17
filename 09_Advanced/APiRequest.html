@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    #testing{
+    background-color: beige;
+    padding: 20px;
+    border: 2px solid aqua;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap; /* responsive */
+}
+
+#imag{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+#detail{
+    margin: 0;
+    flex: 1; /* takes remaining space */
+    word-wrap: break-word;
+}</style>
+</head>
+<body>
+    <!-- 0 UNSENT Client has been created. open() not called yet.
+    1 OPENED open() has been called.
+    2 HEADERS_RECEIVED send() has been called, and headers and status are available.
+    3 LOADING Downloading; responseText holds partial data.
+    4 DONE The operation is complete. -->
+    <div id="testing">
+        <img id="imag" src="" alt="Empty">
+        <h1 id="detail"></h1>
+    </div>
+
+</body>
+<script>
+     
+    const reqUrl= 'https://api.github.com/users/hiteshchoudhary'
+    const xhr=new XMLHttpRequest()
+    xhr.open('GET',reqUrl)
+    xhr.onreadystatechange=function(){
+        console.log(xhr.readyState)
+        if(xhr.readyState===4){
+            const data=JSON.parse(this.responseText)
+            // console.log(typeof data)
+            // console.log(data.followers)
+            // console.log(data.avatar_url)
+            // console.log(data.name)
+            console.log(data)
+            
+            document.getElementById('imag').setAttribute('src', data.avatar_url)
+            // document.getElementById('imag').addEventListener('click',(e)=>{
+            //     if(e.target==="IMG"){
+            //         console.log("img- clicked")
+
+            //     }
+            //     e.stopPropagation
+            // },false)
+
+
+            document.getElementById('imag').addEventListener('click', () => {
+                window.open(data.html_url, "_blank"); // GitHub profile URL
+            });
+            // console.log(avatar_url)
+
+
+            document.getElementById('detail').innerHTML=`Name: ${data.name} Followers: ${data.followers}`
+        }
+
+    }
+    xhr.send()
+
+
+
+</script>
+</html>
