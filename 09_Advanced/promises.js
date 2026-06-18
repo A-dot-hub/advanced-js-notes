@@ -52,4 +52,53 @@ promise4
   })
   .then((username) => {
     console.log(username);
-  });
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  .finally(() => console.log("promise is either resolved or rejected"));
+
+const promise5 = new Promise((reject, resolve) => {
+  setTimeout(() => {
+    let error = true;
+    if (!error) {
+      resolve({ username: "javascript", password: "123" });
+    } else {
+      reject("ERROR: js soething went wrong");
+    }
+  }, 1000);
+});
+
+async function consumedPromisedFive() {
+  try {
+    const response = await promise5;
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+consumedPromisedFive();
+
+// by the try catch
+// async function getALLUsers() {
+//   try {
+//     const response = await fetch("https://jsonplaceholder.typicode.com/users");
+//     // console.log(response);
+//     const data = await response.json();
+//     console.log(data);
+//   } catch (e) {
+//     console.log("E", e);
+//   }
+// }
+
+// getALLUsers();
+
+fetch("https://jsonplaceholder.typicode.com/users")
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((e) => console.log(e));
