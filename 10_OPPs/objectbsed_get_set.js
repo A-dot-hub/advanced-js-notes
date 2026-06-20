@@ -9,3 +9,6 @@ const User = {
     this._email = val;
   },
 };
+
+const tea = Object.create(User);
+console.log(tea.email);
